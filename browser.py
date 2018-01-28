@@ -80,7 +80,7 @@ class MainWebApp(QMainWindow):
         # 添加浏览器到窗口中
         self.setCentralWidget(self.browser)
 
-        if True:
+        if False:
             ###使用QToolBar创建导航栏，并使用QAction创建按钮
             # 添加导航栏
             navigation_bar = QToolBar('Navigation')
@@ -154,10 +154,6 @@ class MainWebApp(QMainWindow):
     def renew_urlbar(self, q):
         # 将当前网页的链接更新到地址栏
         self.urlbar.setText(q.toString())
-        self.urlbar.setCursorPosition(0)
-    
-    def test_run_javascript(self):   
-        webapp.runscript('RunWebAppCommand()')
 
 
 def doWaiting(msg):
@@ -180,23 +176,6 @@ def hello():
         #webapp.runscript('RunWebAppCommand("'+msg+'")')
     except Exception as e:
         print('hello error:', e.message)
-
-def startServer():
-        sk = socket.socket()
-        sk.bind(("127.0.0.1", 9008))
-        sk.listen(5)
-        while True:
-            conn, addr = sk.accept()
-            while True:
-                accept_data = str(conn.recv(1024),
-                                  encoding="utf8")
-                print("".join(["接收内容：", accept_data, "     客户端口：", str(addr[1])]))
-                # webapp.runscript('RunWebAppCommand("'+accept_data+'")')
-                # if accept_data == "byebye":  # 如果接收到“byebye”则跳出循环结束和第一个客户端的通讯，开始与下一个客户端进行通讯
-                break
-                # send_data = input("输入发送内p容：")
-                # conn.sendall(bytes(send_data, encoding="utf8"))
-            conn.close()  # 跳出循环时结束通讯
             
             
 # 创建应用
@@ -218,7 +197,6 @@ webapp.show()
 #window.show()
 #time.sleep(10)
 #webapp.go('http://www.163.com')
-#webapp.runscript('RunWebAppCommand()')
 
 #thread1 = threading.Thread(target = doWaiting)
 #thread1 = threading.Thread(target = doWaiting,args=(webapp,))

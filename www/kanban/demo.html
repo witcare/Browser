@@ -52,23 +52,30 @@
     </a>
     -->
 <script>
-   
+   var CURRENT_PAGE_INDEX = 0;
+
    function RunWebAppCommand(code) {
-        //alert(code);
-        if(code=="01"){
-           i = 0;
+        //alert(code+ ':' + CURRENT_PAGE_INDEX);
+        if(code==="01"){
+           CURRENT_PAGE_INDEX = 0;
            InitPic1("demo_img/01.jpg");
         }
-        if(code=="02"){
+        if(code==="02"){
+          //alert('gotoNextPage'+ ':' + CURRENT_PAGE_INDEX);
           gotoNextPage();
+          
         }
-        if(code=="03"){
+        if(code==="03"){
+           //alert('gotoNextPage'+ ':' + CURRENT_PAGE_INDEX);
 	  	    gotoLastPage();
         }
    }
 
     $(function () {
-    	setInterval("getCurrentDate()", 1000);
+    	  setPic('demo_img/01.jpg|demo_img/02.jpg|demo_img/03.jpg|demo_img/04.jpg|demo_img/05.jpg|demo_img/06.jpg|demo_img/07.jpg|demo_img/08.jpg|demo_img/09.jpg|demo_img/10.jpg|demo_img/11.jpg|demo_img/12.jpg|demo_img/13.jpg|demo_img/14.jpg|demo_img/15.jpg|demo_img/20.jpg|demo_img/21.jpg|demo_img/22.jpg|demo_img/23.jpg|demo_img/24.jpg|demo_img/25.jpg|demo_img/26.jpg');
+        InitPic1("demo_img/01.jpg");
+
+        setInterval("getCurrentDate()", 1000);
 	   // alert("function");
         //var request = GetRequest();
         //var id = request["id"];
@@ -77,39 +84,31 @@
             //inventory(id, second);
         //}
         //setBody();
-    	var returnhome_btn = getCookie("returnhome_btn");
+    	  var returnhome_btn = getCookie("returnhome_btn");
         if(returnhome_btn == "false"){
         	$("#returnhome").hide();
         }else{
         	$("#returnhome").show();
         };
-		    InitPic1("demo_img/01.jpg");
-
-        setPic('demo_img/01.jpg|demo_img/02.jpg|demo_img/03.jpg|demo_img/04.jpg|demo_img/05.jpg|demo_img/06.jpg|demo_img/07.jpg|demo_img/08.jpg|demo_img/09.jpg|demo_img/10.jpg|demo_img/11.jpg|demo_img/12.jpg|demo_img/13.jpg|demo_img/14.jpg|demo_img/15.jpg|demo_img/20.jpg|demo_img/21.jpg|demo_img/22.jpg|demo_img/23.jpg|demo_img/24.jpg|demo_img/25.jpg|demo_img/26.jpg');
-        
     });
+
+
     var i = 0;
     var ulss;
 	 var STATIC_SECOND=30000;
     function setPic(url) {
-	    //alert(url);
-        //if (second == null)
-        //    second = STATIC_SECOND;
-        //document.body.style.backgroundImage = "url(http://115.28.242.138:90/Upload/20160705/2011120810381191.jpg)"; //改变背景图片
-        //$("#bg").src = ;
         ulss = url.split("|");
-        
         //setTimeout(function () { InitPic(second); }, second);
     }
     function InitPic() {
-        if (i < ulss.length) {
-            $("#bg").attr("src", ulss[i]);
+        if (CURRENT_PAGE_INDEX < ulss.length) {
+            $("#bg").attr("src", ulss[CURRENT_PAGE_INDEX]);
         } else {
-            i = 0;
-            $("#bg").attr("src", ulss[i]);
+            CURRENT_PAGE_INDEX = 0;
+            $("#bg").attr("src", ulss[CURRENT_PAGE_INDEX]);
         }
-        i++;
-        //setTimeout(function () { InitPic(sc); }, sc);
+        CURRENT_PAGE_INDEX=CURRENT_PAGE_INDEX+1;
+        //setTimeout(function () { InitPic(); });
     }
     function InitPic1(url) {
         $("#bg").attr("src", url);
@@ -194,32 +193,23 @@
 	  function gotoNextPage()
 	  {
        //window.location.href = "/kanban/index.html";
-	     if(i<ulss.length-1) {
-			     i=i+1;
-			     //InitPic(STATIC_SECOND);
+	     if(CURRENT_PAGE_INDEX<ulss.length-1) {
+			     CURRENT_PAGE_INDEX=CURRENT_PAGE_INDEX+1;
 	     } else {
 		       //window.location.href = "../index.html";
 		       //window.location.href = "demo.html";
-		       i=0;
-		   }
-		   $("#bg").attr("src", ulss[i]);
-	    
-	   
+		       CURRENT_PAGE_INDEX=0;
+		  }
+		  $("#bg").attr("src", ulss[CURRENT_PAGE_INDEX]);
 	  }
 	  function gotoLastPage()
 	  {
-			if(i<=0) {
-				i=ulss.length-1
-			  //window.location.href = "../index.html";
-			  //window.location.href = "demo.html";
+			if(CURRENT_PAGE_INDEX<=0) {
+				CURRENT_PAGE_INDEX=ulss.length-1;
 			} else {
-			   i=i-1;
-			   $("#bg").attr("src", ulss[i]);
+			   CURRENT_PAGE_INDEX=CURRENT_PAGE_INDEX-1;
 			}
-
-			 //InitPic(STATIC_SECOND);
-			     //window.location.href = "/kanban/index.html";
-				 // window.location.href = "http://xmjl.jitmes.com/kanban/";
+         $("#bg").attr("src", ulss[CURRENT_PAGE_INDEX]);
 		}
 			//document.onkeyup =keyup;
 
