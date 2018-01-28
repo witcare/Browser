@@ -31,7 +31,7 @@ class MainWindow(QMainWindow):
         path1 = os.getcwd()
         # print(path1)
         # url = QUrl('http://www.baidu.com')
-        url = QUrl('file:///' + path1 + '/www/demo.html')
+        url = QUrl('file:///' + path1 + '/www/index.html')
         self.browser.setUrl(url)
         
         # 添加浏览器到窗口中
