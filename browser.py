@@ -5,6 +5,7 @@
 
 import sys
 import os
+import socket
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -22,7 +23,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon('icons/penguin.png'))
 
         # 设置窗口大小900*600
-        self.resize(900, 600)
+        #self.resize(900, 600)
         self.show()
 
         # 设置浏览器
@@ -88,7 +89,21 @@ class MainWindow(QMainWindow):
         self.urlbar.setText(q.toString())
         self.urlbar.setCursorPosition(0)
 
-
+    def startServer():
+        sk = socket.socket()
+        sk.bind(("127.0.0.1", 8008))
+        sk.listen(5)
+        while True:
+            conn, addr = sk.accept()
+            while True:
+                accept_data = str(conn.recv(1024),
+                                  encoding="utf8")
+                print("".join(["接收内容：", accept_data, "     客户端口：", str(addr[1])]))
+                # if accept_data == "byebye":  # 如果接收到“byebye”则跳出循环结束和第一个客户端的通讯，开始与下一个客户端进行通讯
+                break
+                # send_data = input("输入发送内p容：")
+                # conn.sendall(bytes(send_data, encoding="utf8"))
+            conn.close()  # 跳出循环时结束通讯
 # 创建应用
 app = QApplication(sys.argv)
 # 创建主窗口
@@ -97,6 +112,6 @@ window = MainWindow()
 # window.setUrl(url)
 # 显示窗口
 window.show()
-window.showFullScreen()
+#window.showFullScreen()
 # 运行应用，并监听事件
 app.exec_()
