@@ -28,6 +28,9 @@
 			微博热搜 看板</p>
 		
 <script type="text/javascript">
+
+
+
 function CloseWebPage(){
  if (navigator.userAgent.indexOf("MSIE") > 0) {
   if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
@@ -50,7 +53,7 @@ function CloseWebPage(){
     
 </script>
 		
-		<a href="demo/demo.html">看板</a>
+		<a href="kanban/demo.html">看板</a>
 		
 	</div>
 </div>
@@ -81,10 +84,13 @@ function CloseWebPage(){
     } 
     
     window.onload = function() { 
-    	  toggleFullScreen();
+    	  //toggleFullScreen();
+         //alert("onload");
     }
     
-     
+   function RunWebAppCommand(code) {
+      window.location.href="kanban/demo.html";
+   }
     
     
 </script>

@@ -53,6 +53,20 @@
     -->
 <script>
    
+   function RunWebAppCommand(code) {
+        //alert(code);
+        if(code=="01"){
+           i = 0;
+           InitPic1("demo_img/01.jpg");
+        }
+        if(code=="02"){
+          gotoNextPage();
+        }
+        if(code=="03"){
+	  	    gotoLastPage();
+        }
+   }
+
     $(function () {
     	setInterval("getCurrentDate()", 1000);
 	   // alert("function");
@@ -76,7 +90,7 @@
     });
     var i = 0;
     var ulss;
-	  var STATIC_SECOND=30000;
+	 var STATIC_SECOND=30000;
     function setPic(url, second) {
 	    //alert(url);
         if (second == null)
@@ -84,7 +98,8 @@
         //document.body.style.backgroundImage = "url(http://115.28.242.138:90/Upload/20160705/2011120810381191.jpg)"; //改变背景图片
         //$("#bg").src = ;
         ulss = url.split("|");
-        //setTimeout(function () { InitPic(second); }, second);
+        
+        setTimeout(function () { InitPic(second); }, second);
     }
     function InitPic(sc) {
         if (i < ulss.length) {
