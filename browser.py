@@ -31,14 +31,14 @@ class Runthread(QtCore.QThread):
         # print('Run thread:', time.strftime('%H:%M:%S'))
         # self._signal.emit(time.strftime('%H:%M:%S'))  # 可以在这里写信号焕发
         try:
-            print('Start socket:', time.strftime('%H:%M:%S'))
+            #print('Start socket:', time.strftime('%H:%M:%S'))
             sk = socket.socket()
             sk.bind(("127.0.0.1", 9008))
-            print('Start listen:', time.strftime('%H:%M:%S'))
+            #print('Start listen:', time.strftime('%H:%M:%S'))
             sk.listen(5)
-            print('Start while :', time.strftime('%H:%M:%S'))
+            #print('Start while :', time.strftime('%H:%M:%S'))
             while True:
-                print('Start accept :', time.strftime('%H:%M:%S'))
+                #print('Start accept :', time.strftime('%H:%M:%S'))
                 conn, addr = sk.accept()
                 while True:
                     accept_data = str(conn.recv(1024),
@@ -183,7 +183,6 @@ app = QApplication(sys.argv)
 # L = threading.Lock()
 # 创建主窗口
 webapp = MainWebApp()
-#window.showFullScreen()
 path1 = os.getcwd()
 # print(path1)
 # url = QUrl('http://www.baidu.com')
@@ -192,7 +191,7 @@ url = 'file:///' + path1 + '/www/index.html'
 webapp.go(url)
 
 webapp.show()
-
+webapp.showFullScreen()
 # 显示窗口
 #window.show()
 #time.sleep(10)
