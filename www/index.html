@@ -27,6 +27,8 @@
 			报工 生产报工 缺料<br/>
 			设备故障 设备报修<br/>
 			作业指导书 工单<br/>
+			首页 返回首页 开机页面<br/>
+      打开报警灯 关闭报警灯
 			</p>
 		
 <script type="text/javascript">
@@ -109,6 +111,14 @@ function CloseWebPage(){
            //alert('已经提交设备维修申请');
             SendDeviceError();
         }
+        if(code==="0601"){
+           //alert('已经提交设备维修申请');
+            SendDeviceError();
+        }
+        if(code==="0600"){
+           //alert('已经提交设备维修申请');
+            CloseLedError();
+        }
    }
    
     var url="http://saasapi.jitmes.com/api";
@@ -129,7 +139,7 @@ function CloseWebPage(){
                 });  
       }
       
-          function SendMetialError() {
+     function SendMetialError() {
        $.ajax({  
                     type : "GET",  //提交方式  
                     url : url + "/Demo/IotDevice/Button",//路径  
@@ -137,6 +147,23 @@ function CloseWebPage(){
                     	  "reader" :"435af433d87c6c69",
                         "address" :"8D77764C",
                         "button" :"02"
+                    },//数据，这里使用的是Json格式进行传输  
+                    success : function(result) {//返回数据根据结果进行相应的处理  
+                        if(result.IsSuccessful) {
+                        	 //alert("保存成功！");
+                       	}
+                    }  
+                });  
+      }
+      
+       function CloseLedError() {
+       $.ajax({  
+                    type : "GET",  //提交方式  
+                    url : url + "/Demo/IotDevice/Button",//路径  
+                    data : {  
+                    	  "reader" :"435af433d87c6c69",
+                        "address" :"8D77764C",
+                        "button" :"10"
                     },//数据，这里使用的是Json格式进行传输  
                     success : function(result) {//返回数据根据结果进行相应的处理  
                         if(result.IsSuccessful) {
