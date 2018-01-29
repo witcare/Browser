@@ -41,8 +41,7 @@ class Runthread(QtCore.QThread):
                 #print('Start accept :', time.strftime('%H:%M:%S'))
                 conn, addr = sk.accept()
                 while True:
-                    accept_data = str(conn.recv(1024),
-                                  encoding="utf8")
+                    accept_data = str(conn.recv(1024), encoding="utf8")
                     print("".join(["接收内容：", accept_data, "     客户端口：", str(addr[1])]))
                     self._signal.emit(accept_data) 
                     # if accept_data == "byebye":  # 如果接收到“byebye”则跳出循环结束和第一个客户端的通讯，开始与下一个客户端进行通讯
