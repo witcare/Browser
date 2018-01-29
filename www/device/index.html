@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>设备测试</title>
+<meta name="description" content="设备测试">
+<meta name="author" content="陈志渊 pm@witcare.com">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+<!-- Icons -->
+<!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+<link rel="shortcut icon" href="../img/favicon.ico">
+<!-- END Icons -->
+<!-- Stylesheets -->
+<!-- Bootstrap is included in its original form, unaltered -->
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/plugins.css">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/themes/amethyst.css">
+<link rel="stylesheet" type="text/css" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
+<!-- END Stylesheets -->
+
+<!--wt-->
+<script src="../js/vendor/jquery-2.1.4.min.js"></script>
+<script src="../js/vendor/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../cordova.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+<style type="text/css">
+a:link {
+	text-decoration: none;
+}
+</style>
+</head>
+<body>
+	<div id="page-wrapper">
+		<div id="page-container"
+			class="header-fixed-top">
+
+			<!-- Main Container -->
+			<div id="main-container">
+				<header class="navbar navbar-inverse navbar-fixed-top">
+					<!-- Left Header Navigation -->
+					<ul class="nav navbar-nav-custom">
+					    <li><a href="../index.html"><i class="fa fa-home"></i>首页</a></li>
+						<li><a href="javascript:void(0)"></a></li>
+						<li><a href="#"><i class="fa fa-ellipsis-v fa-fw animation-fadeInRight"></i>云车间设备演示</a></li>
+					</ul>
+
+   
+					<ul class="nav navbar-nav-custom pull-right">
+						<li class="animation-fadeInQuick"><a href=""> <strong
+								id="messageInfo">启动时间</strong>
+						</a></li>
+						<li><a href="javascript:void(0)"></a></li>
+						<li class="animation-fadeInQuick"><a href=""> <strong
+								id="lastUpdatedTime">最新响应时间</strong>
+						</a></li>
+						<li><a href="javascript:void(0)"></a></li>
+					</ul>
+              
+					<!-- END Left Header Navigation -->
+				</header>
+				<!-- END Header -->
+
+				<!-- Page content -->
+				<div id="page-content">
+					<div class="block">
+						<!-- Block Tabs Title -->
+						<div class="block-title">
+							<div class="block-options pull-right" id="messageDiv">
+								<a href="javascript:void(0)" onclick="cleanmessge();"
+									class="btn btn-effect-ripple btn-default" data-toggle="tooltip"
+									title="" style="overflow: hidden; position: relative;"
+									data-original-title="清空数据"> <span
+									class="btn-ripple animate"
+									style="height: 34px; width: 34px; top: 2.53334px; left: -2px;"></span>
+									<i class="fa fa-close"></i>清空数据
+								</a>
+							</div>
+
+							<ul class="nav nav-tabs" data-toggle="tabs" id="deviceTabDiv">
+								<li class="active"><a href="#templist">按键列表 <span id="UniqueTagCountDiv"></span></a></li>
+								<li class=""><a href="#collectorlist">采集器列表 </a></li>
+								<li class=""><a href="#cmdlist">提示信息</a></li>
+							</ul>
+						</div>
+						<!-- END Block Tabs Title -->
+
+						<div class="tab-content">
+							<div class="tab-pane active" id="templist">
+							 <div class="block full">
+							
+                                    <!-- Inline Form Content -->
+                                    <form action="#" method="post" class="form-inline" onsubmit="return false;">
+                                        <div class="form-group"> 
+                                            <button type="button" id="openButtonDiv" onclick="openButton();" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;">
+                                            <i class="fa fa-play-circle"></i>&nbsp;&nbsp;启&nbsp;&nbsp;动&nbsp;&nbsp;</button>
+                                            <button type="button" id="closeButtonDiv" onclick="closeButton();" class="btn btn-effect-ripple btn-danger" style="overflow: hidden; position: relative;"><i class="fa fa-stop-circle"></i>&nbsp;&nbsp;停&nbsp;&nbsp;止&nbsp;&nbsp;</button>
+                                        
+                                        </div>
+                                    </form>
+                                    <!-- END Inline Form Content -->
+                                </div>
+							    <div class="row" id="tempdataRow" style="font-size: x-small; word-break: break-all; overflow: auto;"></div>
+							</div>
+							<div class="tab-pane" id="collectorlist">
+							    <div class="block full">
+
+                                    <!-- Inline Form Content -->
+                                    <form action="page_forms_components.html" method="post" class="form-inline" onsubmit="return false;">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="collectorAddress">地址</label>
+                                            <input id="collectorAddress" name="collectorAddress" class="form-control" placeholder="地址" type="text" value="10.8.8.11">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="collectorInterval">过滤间隔</label>
+                                            <input id="collectorInterval" name="collectorInterval" class="form-control" placeholder="过滤间隔" type="text" value="1000">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" id="openCollectorDiv" onclick="openCollector();" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;">
+                                             <i class="fa fa-play-circle"></i>&nbsp;&nbsp;启&nbsp;&nbsp;动&nbsp;&nbsp;</button>
+                                            <button type="button" id="closeCollectorDiv" onclick="closeCollector();" class="btn btn-effect-ripple btn-danger" style="overflow: hidden; position: relative;"><i class="fa fa-stop-circle"></i>&nbsp;&nbsp;停&nbsp;&nbsp;止&nbsp;&nbsp;</button> 
+                                        
+                                            <!-- <button type="button" id="resetCollectorDiv" onclick="resetCollector();" class="btn btn-effect-ripple btn-warning" style="overflow: hidden; position: relative;"><i class="fa fa-file-o"></i>&nbsp;&nbsp;清&nbsp;&nbsp;零&nbsp;&nbsp;</button>-->
+                                        </div>
+                                    </form>
+                                    <!-- END Inline Form Content -->
+                                </div>
+							    <div class="row" id="collectordataRow" style="font-size: x-small; word-break: break-all; overflow: auto;"></div>
+							</div>
+							<div class="tab-pane" id="cmdlist">
+								<div class="list-group" id="readdata"
+									style="font-size: x-small; word-break: break-all; overflow: auto;"></div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				<!-- END Page Content -->
+			</div>
+			<!-- END Main Container -->
+		</div>
+		<!-- END Page Container -->
+	</div>
+	<!-- END Page Wrapper -->
+	<a id="returnhome" href="../index.html" style="display:block;position:fixed;bottom:8%;right:4%;z-index:1000;">
+			<img src="img/home.png" width="50px" height="50px"/>
+    </a>
+
+	<script src="../js/plugins.js"></script>
+	<script src="../js/app.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			document.addEventListener("deviceready", onDeviceReady, false);
+			document.addEventListener("backbutton", myBackbuttonListener, false);
+			$(window).bind('beforeunload', function() {
+				SmartButtonPlugin.stop();
+				CollectorPlugin.stop();
+			});
+			var returnhome_btn = getCookie("returnhome_btn");
+    		if(returnhome_btn == "false"){
+            	$("#returnhome").hide();
+            }else{
+            	$("#returnhome").show();
+            }
+		});
+    
+    function myBackbuttonListener() {  	
+    	 //alert("myBackbuttonListener");
+    	 SmartButtonPlugin.stop();
+		 CollectorPlugin.stop();
+    	 window.location.href = "../index.html";	
+	}
+    
+
+		var TempTagList = new Array();
+		var TagCount = 0;
+		var CounterValue=0;
+		var lastDeviceValueDivId="";
+		// Cordova is ready
+		//
+		function onDeviceReady() {
+			$("#closeButtonDiv").hide();
+			$("#closeCollectorDiv").hide();
+			//$("#resetCollectorDiv").hide();
+			
+			setTimeout("openButton()", 2000);
+			setTimeout("openCollector()", 3000);
+		}
+		function openButton() {
+			TempTagList = new Array();
+			TagCount = 0;
+		    $("#tempdataRow").html("");
+			
+			$("#openButtonDiv").hide();
+			$("#closeButtonDiv").show();
+			//cleanmessge();
+			$("#messageInfo").html("启动时间：" + wt_current_date_time());
+			SmartButtonPlugin.start(function(data) {
+				//alert(data.code);
+				if(data.code==1) {
+					AddTempTag(data.data);
+					var content="";
+					for (var i = 0; i < TempTagList.length; i++) {
+				        var oData = TempTagList[i];
+				        content = showTempListByGrid(oData) + content;
+				    }
+					$("#tempdataRow").html(content);
+					//$("#UniqueTagCountDiv").html(TempTagList.length);
+					
+					
+					$('#deviceTabDiv a:first').tab('show'); // 选择第一个标签
+					//$('#deviceTabDiv a:last').tab('show'); // 择最后一个标签
+					//$('#deviceTabDiv li:eq(1) a').tab('show'); // 选择第二个标签
+					//showTempListByGrid(data.data)
+				} else {
+					if(data.code==404) {
+						$("#closeButtonDiv").hide();
+						$("#openButtonDiv").show();
+					}
+					$("#readdata").html(wt_current_time2() + "--" + data.data + "<br/>"
+							+ $("#readdata").html());
+				}
+				$("#lastUpdatedTime").html("最新响应：" + wt_current_date_time());
+			},10006,"");
+		}
+		function closeButton() {
+			$("#closeButtonDiv").hide();
+			$("#openButtonDiv").show();
+			SmartButtonPlugin.stop();
+       	}
+		
+		function openCollector() {
+			CounterValue=0;
+			lastDeviceValueDivId="";
+			$("#collectordataRow").html("");
+			
+			$("#closeCollectorDiv").show();
+			//$("#resetCollectorDiv").show();
+			$("#openCollectorDiv").hide();
+
+			//alert("openPort");
+			//cleanmessge();
+			$("#messageInfo").html("启动时间：" + wt_current_date_time());
+			//   
+			CollectorPlugin.start(function(data) {
+				//alert(data.code);
+				if(data.code==1) {
+					CounterValue = CounterValue +1;//parseFloat();
+					lastDeviceValueDivId = "lastDeviceValueDiv" + generateUUID();
+					var content = $("#collectordataRow").html();
+					var ret = '<div class="widget col-xs-2">';
+						ret = ret
+								+ '<div class="widget-content widget-content-mini themed-background-dark">';
+				      ret = ret + '<span class="pull-right text-muted" id="'+lastDeviceValueDivId+'">'
+								+ '设备数：' +data.deviceValue + '</span>';
+						ret = ret + '<strong class="text-light-op">' +wt_current_time2()
+								+ '</strong>';
+						ret = ret + '</div>';
+
+						ret = ret + '<div class="widget-content themed-background-social clearfix center" style="text-align: center;">';
+						ret = ret
+						+ '<h2 class="widget-heading h3 text-light center"><strong>实际数：'
+						+ CounterValue + '</strong></h2>';
+				        ret = ret + '</div>';
+					    ret = ret + '</div>';
+					    
+					content =ret + content;
+					
+					$("#collectordataRow").html(content);
+					$('#deviceTabDiv li:eq(1) a').tab('show'); // 选择第二个标签
+				} else if (data.code==10) {
+					try{
+						$("#"+lastDeviceValueDivId).html('设备数：' +data.data);
+					}catch(err){}
+				} else {
+					if(data.code==404) {
+						$("#closeCollectorDiv").hide();
+						//$("#resetCollectorDiv").hide();
+						$("#openCollectorDiv").show();
+					}
+					
+					$("#readdata").html(wt_current_time2() + "--" + data.data + "<br/>"
+							+ $("#readdata").html());
+				}
+
+				$("#lastUpdatedTime").html("最新响应：" + wt_current_date_time());
+			},$("#collectorAddress").val(),10008,$("#collectorInterval").val());
+			
+			
+			$("#btnClosePort").show();
+
+		}
+		function closeCollector() {
+			$("#closeCollectorDiv").hide();
+			//$("#resetCollectorDiv").hide();
+			$("#openCollectorDiv").show();
+			
+			CollectorPlugin.stop();
+		}
+		function resetCollector() {
+			CounterValue=0;
+			lastDeviceValueDivId="";
+			CollectorPlugin.resetvalue();
+		}
+		
+		function cleanmessge() {
+			TempTagList = new Array();
+			TagCount = 0;
+			CounterValue=0;
+			lastDeviceValueDivId="";
+		    $("#tempdataRow").html("");
+			$("#readdata").html("");
+			$("#collectordataRow").html("");
+			
+		}
+
+		var spaceStr = "&nbsp;&nbsp;&nbsp;&nbsp;";
+		
+
+		function showTempListByGrid(data) {
+			TagCount = TagCount + 1;
+			var ret = ' <div class="col-xs-3"><div class="widget col-xs-12">';
+			if (!empty(data.Button)) {
+				ret = ret
+						+ '<div class="widget-content widget-content-mini themed-background-dark">';
+				ret = ret + '<span class="pull-right text-muted">'
+						+ data.UIUpdated + '</span>';
+				ret = ret + '<strong class="text-light-op">' + data.Address
+						+ '</strong>';
+				ret = ret + '</div>';
+
+				ret = ret + '<div class="widget-content themed-background-'
+						+ getWidgetContentStyle(data.Button) + ' clearfix">';
+				ret = ret + '<div class="text-light pull-right">';
+
+				ret = ret + '读取次数：' + data.UICount  + '<br/>';
+
+				ret = ret + '首次时间： ' + data.Created + '<br/>';
+
+				ret = ret + '</div>';
+
+				ret = ret
+						+ '<h3 class="widget-heading h4 text-light center"><strong>'
+						+ data.Button + '</strong></h3>';
+						
+				ret = ret + '</div>';
+			}
+
+			ret = ret + '</div></div>';
+			return ret;
+		}
+		function getWidgetContentStyle(button) {
+			if (button == "01") {
+				return "danger";
+			}
+			if (button == "02") {
+				return "flat";
+			}
+			if (button == "04") {
+				return "creme";
+			}
+			if (button == "08") {
+				return "amethyst";
+			}
+			if (button == "10") {
+				return "social";
+			}
+		}
+		function AddTempTag(data) {
+			 var newTempTagList= new Array();
+			 var isNew=true;
+			 for (var i = 0; i < TempTagList.length; i++) {
+			        var oData = TempTagList[i];
+			        if(oData.Address+"_"+ oData.Button==data.Address+"_"+ data.Button) {
+			        	 isNew=false;
+			        	 data.UIUpdated=wt_current_date_time();
+			        	 data.UICount= oData.UICount+ 1;
+			        	 data.UICreated= oData.UICreated;
+			        } else {
+			        	newTempTagList.push(oData);
+			        } 
+			 }
+			 if(isNew) {
+				 data.UICreated=wt_current_date_time();
+				 data.UIUpdated=wt_current_date_time();
+				 data.UICount=1;
+			 } 
+		     newTempTagList.push(data);
+			 
+			 TempTagList= newTempTagList;
+			
+		}
+	</script>
+</body>
+</html>

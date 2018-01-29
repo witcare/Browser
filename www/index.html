@@ -18,14 +18,16 @@
 		<h3>请使用[维康维康]来启动对话状态</h3>
 		<p>常用指令包括:<br/>
 			时间 几点  <br/>
-			音乐 百度音乐<br/>
-			传话 缓存 <br/>
-			闲聊 拍照 <br/>
-			成语 天气<br/> 
+			音乐 重启<br/>
+			闲聊 天气 <br/>
 			备忘 室温 <br/>
 			新闻 线路 翻译 <br/> 
-			重启 树莓派状态 微博热搜<br/> 
-			看板 上一页 下一页</p>
+			树莓派状态 微博热搜<br/> 
+			看板 生产看板 上一页 下一页 往前 往后<br/>
+			报工 生产报工 缺料<br/>
+			设备故障 设备报修<br/>
+			作业指导书 工单<br/>
+			</p>
 		
 <script type="text/javascript">
 
@@ -87,7 +89,29 @@ function CloseWebPage(){
     	  //toggleFullScreen();
          //alert("onload");
     }
-    
+   function RunWebAppCommand(code) {
+        //alert(code+ ':' + CURRENT_PAGE_INDEX);
+        if(code==="0101"||code==="0102" ||code==="0103"){
+            window.location.href="kanban/demo.html";
+        }
+        if(code==="0201"){
+           window.location.href="baogong/booking.html";
+        }
+        if(code==="0501"){
+           window.location.href="sop.html";
+        }
+        if(code==="0301"){
+           alert('已经提交缺料申请');
+	  	    //gotoLastPage();
+	  	    //gotoNextPage();
+        }
+        if(code==="0401"){
+           alert('已经提交设备维修申请');
+	  	    //gotoLastPage();
+	  	    //gotoNextPage();
+        }
+   }
+   
    function RunWebAppCommand(code) {
       window.location.href="kanban/demo.html";
    }

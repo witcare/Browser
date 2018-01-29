@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+</head>
+<body style="background-color:#010001;">
+<div style="position:fixed;top: 0; left:0;width:100%;height:100%;">
+    <video width="100%" height="100%" controls autoplay loop>
+
+        <!-- 
+        <source src="file:///android_asset/www/123.mp4" type="video/mp4">
+
+        <object data="file:///android_asset/www/123.mp4" width="100%" height="100%">
+            <embed width="100%" height="100%" src="file:///android_asset/www/123.mp4" />
+        </object>
+        
+        
+        <source src="/storage/emulated/0/123.mp4" type="video/mp4">
+
+        <object data="/storage/emulated/0/123.mp4" width="100%" height="100%">
+            <embed width="100%" height="100%" src="/storage/emulated/0/123.mp4" />
+        </object>
+         -->
+         <source src="123.mp4" type="video/mp4">
+
+        <object data="123.mp4" width="100%" height="100%">
+            <embed width="100%" height="100%" src="123.mp4" />
+        </object>
+    </video>
+</div>
+</body>
+    <script type="text/javascript">
+    $(function() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+        document.addEventListener("backbutton", myBackbuttonListener, false);
+    });
+    function onDeviceReady() {
+    }
+    function myBackbuttonListener() {
+        openUrl("index.html");      
+    }
+    </script>
+</html>

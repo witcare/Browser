@@ -53,25 +53,39 @@
     -->
 <script>
    var CURRENT_PAGE_INDEX = 0;
-
-   function RunWebAppCommand(code) {
+     function RunWebAppCommand(code) {
         //alert(code+ ':' + CURRENT_PAGE_INDEX);
-        if(code==="01"){
+        if(code==="0101"){
            CURRENT_PAGE_INDEX = 0;
            InitPic1("demo_img/01.jpg");
         }
-        if(code==="02"){
-          //alert('gotoNextPage'+ ':' + CURRENT_PAGE_INDEX);
-          gotoNextPage();
-          /.gotoLastPage();
-          
+       if(code==="0102"){
+           gotoLastPage();
         }
-        if(code==="03"){
-           //alert('gotoNextPage'+ ':' + CURRENT_PAGE_INDEX);
-	  	    gotoLastPage();
+        if(code==="0103"){
+            gotoNextPage();
+        }
+        
+        if(code==="0201"){
+           window.location.href="../baogong/booking.html";
+        }
+        if(code==="0501"){
+           window.location.href="../sop.html";
+        }
+        if(code==="0301"){
+           alert('已经提交缺料申请');
+	  	    //gotoLastPage();
+	  	    //gotoNextPage();
+        }
+        if(code==="0401"){
+           alert('已经提交设备维修申请');
+	  	    //gotoLastPage();
 	  	    //gotoNextPage();
         }
    }
+   
+
+  
 
     $(function () {
     	  setPic('demo_img/01.jpg|demo_img/02.jpg|demo_img/03.jpg|demo_img/04.jpg|demo_img/05.jpg|demo_img/06.jpg|demo_img/07.jpg|demo_img/08.jpg|demo_img/09.jpg|demo_img/10.jpg|demo_img/11.jpg|demo_img/12.jpg|demo_img/13.jpg|demo_img/14.jpg|demo_img/15.jpg|demo_img/20.jpg|demo_img/21.jpg|demo_img/22.jpg|demo_img/23.jpg|demo_img/24.jpg|demo_img/25.jpg|demo_img/26.jpg');

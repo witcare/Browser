@@ -1,0 +1,820 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>智能云车间</title>
+    <meta name="description" content="智能云车间">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="style/css/bootstrap.css">
+    <link rel="stylesheet" href="style/css/animate.css">
+    <link rel="stylesheet" href="style/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style/css/font.css">
+    <link rel="stylesheet" href="style/css/plugin.css">
+    <link rel="stylesheet" href="style/css/app.css">
+    <link href="style/js/xcConfirm/css/xcConfirm.css" rel="stylesheet" />
+    <script src="style/js/xcConfirm/js/jquery-1.9.1.js"></script>
+    <script src="style/js/xcConfirm/js/xcConfirm.js"></script>
+    <script src="style/js/layer/layer.js"></script>
+    <script src="style/js/common.js"></script>
+    <style>
+        #tabgx th, #tabgx td {
+            height: 33px;
+            line-height: 33px;
+            padding: 3px 5px;
+        }
+
+        @media screen and (max-width:320px) {
+            body {
+                font-size: 10px;
+            }
+
+            #tabgx th, #tabgx td {
+                height: 45px;
+                line-height: 45px;
+            }
+        }
+
+        @media screen and (max-width:768px) and (min-width:320px) {
+            #tabgx th, #tabgx td {
+                min-height: 35px;
+                line-height: 35px;
+            }
+
+            body p, body input, body table {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body style="background-color:#DFE2F5">
+    <section class="vbox flex">
+
+        <header class="bg-primary dker nav-bar nav-bar-fixed-top">
+            <a href="../index.html" class="btn btn-link pull-left"> <i class="fa fa-home"></i>
+            </a>
+            <a href="#" class="nav-brand" style="font-size: 16px;">
+                生产报工
+                <span class="pull-right" style="font-size: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;管理员</span>
+            </a>
+        </header>
+        <section id="content">
+            <section class="wrapper">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="input-group" style="padding-left:15px;">
+                            <div class="input-group-addon">工单编号</div>
+                            <input class="form-control" type="email" placeholder="工单编号" style="width:400px;">
+                            <a href="#" class="btn btn-sm  btn-info" id="charging" style="margin-left:30px;margin-top: 2px;"> <i class="fa fa-inbox"></i>
+                                投料
+                            </a>
+                            <a class="btn btn-sm  btn-success" id="doStart" style="margin-left:15px;margin-top: 2px;">
+                                <i class="fa fa-flag-o"></i>
+                                开工
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 panel" style="margin-bottom:10px;">
+                        <section class="panel-body">
+                            <form class="form-horizontal" method="post" action="#">
+                                <div class="form-group" id="doEnd" style="display: none">
+                                    <div class="col-xs-3">
+                                        <div class="input-group m-b">
+                                            <span class="input-group-addon">投产数量</span>
+                                            <input class="form-control" type="text" id="KITTING_QUANTITY" onchange="changeQuality()"></div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="input-group m-b">
+                                            <span class="input-group-addon">异常数量</span>
+                                            <input class="form-control" type="text" id="DEFECT_QUANTITY" onchange="changeQuality()"></div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="input-group m-b">
+                                            <span class="input-group-addon">完工数量</span>
+                                            <input class="form-control" type="text" id="FINISH_QUANTITY" onchange="changeFinsh()"></div>
+                                    </div>
+                                </div>
+                                <div class="processButton">
+                                    <div style="float:left;text-align:center;">
+                                        <button class="btn btn-xs btn-success">
+                                            <i class="fa fa-flag"></i>
+                                            制材
+                                        </button>
+                                        <br>
+                                        <span style="text-align:center;">1600/1600</span>
+                                    </div>
+                                    <i class="fa fa-chevron-right" style="float:left;display:inline-block;margin:18px 10px 10px 10px;"></i>
+                                    <div style="float:left;text-align:center;">
+                                        <button class="btn btn-xs btn-success">
+                                            <i class="fa fa-flag"></i>
+                                            补土
+                                        </button>
+                                        <br>
+                                        <span style="text-align:center;">1610/1600</span>
+                                    </div>
+                                    <i class="fa fa-chevron-right" style="float:left;display:inline-block;margin:18px 10px 10px 10px;"></i>
+                                    <div style="float:left;text-align:center;">
+                                        <button class="btn btn-xs btn-success">
+                                            <i class="fa fa-flag"></i>
+                                            单排
+                                        </button>
+                                        <br>
+                                        <span style="text-align:center;">1600/1600</span>
+                                    </div>
+                                    <i class="fa fa-chevron-right" style="float:left;display:inline-block;margin:18px 10px 10px 10px;"></i>
+                                    <div style="float:left;text-align:center;">
+                                        <button class="btn btn-xs btn-warning">
+                                            <i class="fa fa-gavel"></i>
+                                            手磨
+                                        </button>
+                                        <br>
+                                        <span style="text-align:center;">500/1600</span>
+                                    </div>
+                                    <i class="fa fa-chevron-right" style="float:left;display:inline-block;margin:18px 10px 10px 10px;"></i>
+                                    <div style="float:left;text-align:center;">
+                                        <button class="btn btn-xs btn-info">
+                                            <i class="fa fa-spinner"></i>
+                                            油漆
+                                        </button>
+                                        <br>
+                                        <span style="text-align:center;">0/1600</span>
+                                    </div>
+                                    <i class="fa fa-chevron-right" style="float:left;display:inline-block;margin:18px 10px 10px 10px;"></i>
+                                    <div style="float:left;text-align:center;">
+                                        <button class="btn btn-xs btn-info">
+                                            <i class="fa fa-spinner"></i>
+                                            底磨
+                                        </button>
+                                        <br>
+                                        <span style="text-align:center;">0/1600</span>
+                                    </div>
+                                    <i class="fa fa-chevron-right" style="float:left;display:inline-block;margin:18px 10px 10px 10px;"></i>
+                                    <div style="float:left;text-align:center;">
+                                        <button class="btn btn-xs btn-info">
+                                            <i class="fa fa-spinner"></i>
+                                            面磨
+                                        </button>
+                                        <br>
+                                        <span style="text-align:center;">0/1600</span>
+                                    </div>
+                                    <i class="fa fa-chevron-right" style="float: left; display: none; margin: 18px 10px 10px;"></i>
+                                </div>
+                            </form>
+                        </section>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <section class="panel">
+                            <header class="panel-heading bg-light">
+                                <ul class="nav nav-tabs bg-info" data-toggle="tabs" style="background-color:#A5A5A5;">
+                                    <li class="fa active" style="min-width: 100px">
+                                        <a href="#popular" class="fa fa-tasks" data-toggle="tab" style="font-size: 15px">&nbsp;&nbsp;基本信息</a>
+                                    </li>
+                                    <li class="" style="min-width: 100px">
+                                        <a href="#comment" class="fa fa-cogs" data-toggle="tab" style="min-width: 100px;font-size: 15px">&nbsp;&nbsp;料&nbsp;&nbsp;&nbsp;&nbsp;单</a>
+                                    </li>
+                                    <li class="">
+                                        <a class="fa fa-book" href="#guide" style="min-width: 100px;font-size: 15px" data-toggle="tab">
+                                            &nbsp;&nbsp;SOP
+                                            <span class="badge bg-success  pull-right guide"></span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#defect" class="fa fa-flash" style="min-width: 100px;font-size: 15px" data-toggle="tab">
+                                            &nbsp;&nbsp;异常列表
+                                            <span class="badge bg-danger  pull-right defect">1</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#lack" class="fa fa-warning" style="min-width: 100px;font-size: 15px" data-toggle="tab">
+                                            &nbsp;&nbsp;缺料列表
+                                            <span class="badge bg-danger  pull-right lack">3</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#tcamera" class="fa fa-camera" style="min-width: 100px;font-size: 15px" data-toggle="tab">
+                                            &nbsp;&nbsp;生产图片
+                                            <span class="badge bg-danger  pull-right lack"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </header>
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="popular">
+                                        <section class="panel" style="margin-bottom:10px;">
+                                            <header class="panel-heading bg-light" style="background-color:#16015C;color: #ffffff">订单基本信息</header>
+                                            <div class="panel-body"  style="padding-bottom: 0px;">
+                                                <form class="form-horizontal" method="get">
+                                                    <input type="hidden" id="hidstatus" />
+                                                    <input type="hidden" id="hidcontract_no" />
+                                                    <input type="hidden" id="workOrderId" />
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">订单编号</span>
+                                                            <input class="form-control" placeholder="订单编号" type="text" id="PO_NO" value="SN20161104001"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">客户名称</span>
+                                                            <input class="form-control" placeholder="客户名称" type="text" id="CUSTOMER" value="厦门友邦股份有限公司"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">产品名称</span>
+                                                            <input class="form-control" placeholder="产品名称" type="text" id="PRODUCT_NAME" value="BC61041-4-01"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">工单编号</span>
+                                                            <input class="form-control" placeholder="工单编号" type="text" id="WO_NO" value="WN20161104001-01"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">RFID编码</span>
+                                                            <input class="form-control" placeholder="RFID编码" autocomplete="off" data-provide="typeahead" type="text" id="tagid" value=""></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">订单交期</span>
+                                                            <input class="form-control" placeholder="订单交期" type="text" id="DUE_DATE" value="2016-11-23 16:12:35"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">投产日期</span>
+                                                            <input class="form-control" placeholder="投产日期" type="text" id="KITTING_DATE" value="2016-11-04 17:34:08"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">订单数量</span>
+                                                            <input class="form-control" placeholder="订单数量" type="text" id="QUANTITY" value="100"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">投产数量</span>
+                                                            <input class="form-control" placeholder="投产数量" type="text" id="KITTING_QUANTITY_1" value="1600"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">报废数量</span>
+                                                            <input class="form-control" placeholder="报废数量" type="text" id="DEFECT_QUANTITY_1" value="0"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">当前状态</span>
+                                                            <input class="form-control" placeholder="当前状态" type="text" id="status" value="正常"></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">当前工位</span>
+                                                            <input class="form-control" placeholder="当前工位" type="text" id="process_code" value="手磨"></div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </section>
+                                        <section class="panel">
+                                            <header class="panel-heading bg-light">工单制程信息</header>
+                                            <table class="table table-condensed m-b-none text-sm" id="tabgx">
+                                                <tr>
+                                                    <th>工艺顺序</th>
+                                                    <th>工艺名称</th>
+                                                    <th>工作站</th>
+                                                    <th>开始时间</th>
+                                                    <th>完工时间</th>
+                                                    <th>异常数量</th>
+                                                    <th>完成数量</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>制材</td>
+                                                        <td>制材-61(1厂)</td>
+                                                        <td>2016-11-09 18:42:42</td>
+                                                        <td>2016-11-09 18:42:47</td>
+                                                        <td>0</td>
+                                                        <td>1600</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>补土</td>
+                                                        <td>补土-1(1厂)</td>
+                                                        <td>2016-11-04 17:50:24</td>
+                                                        <td>2016-11-09 18:42:52</td>
+                                                        <td>0</td>
+                                                        <td>1600</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>补土</td>
+                                                        <td>补土-5(2厂)</td>
+                                                        <td>2016-11-08 18:16:50</td>
+                                                        <td>2016-11-09 18:43:14</td>
+                                                        <td>0</td>
+                                                        <td>10</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>单排</td>
+                                                        <td>单排-8(1厂)</td>
+                                                        <td>2016-11-04 18:22:43</td>
+                                                        <td>2016-11-04 18:23:00</td>
+                                                        <td>0</td>
+                                                        <td>1600</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>手磨</td>
+                                                        <td>手磨-46</td>
+                                                        <td>2016-11-09 18:43:05</td>
+                                                        <td>2016-11-09 18:43:28</td>
+                                                        <td>0</td>
+                                                        <td>500</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td>油漆</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>6</td>
+                                                        <td>底磨</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>7</td>
+                                                        <td>面磨</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </section>
+                                    </div>
+                                    <input type="hidden" id="stageId" />
+                                    <input type="hidden" id="stageName" />
+                                    <div id="special-info" class="tab-pane">
+                                        <fieldset>
+                                            <div class="panel">
+                                                <div id="collapseOne" class="panel-collapse in">
+                                                    <div class="panel-body text-sm">
+                                                        <p id="special_require" style="line-height:30px;font-size:14px;"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="tab-pane" id="comment">
+                                        <table class="table table-bordered feeding">
+                                            <thead>
+                                                <tr>
+                                                    <th>品名</th>
+                                                    <th>箱号</th>
+                                                    <th>当前数量</th>
+                                                    <th>投料用户</th>
+                                                    <th>当前工序</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>三聚氰胺板</td>
+                                                    <td>BN20161103005</td>
+                                                    <td>20</td>
+                                                    <td>刘庆</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input type="button" class="btn btn-info" value="首页" id="first" onclick="firstPage()" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="button" class="btn btn-info" value="上一页" id="pre" onclick="prePage()" />
+                                                    </td>
+                                                    <td>
+                                                        第
+                                                        <span id="page">1</span>
+                                                        页/共
+                                                        <span id="pageCount"></span>
+                                                        页
+                                                    </td>
+                                                    <td>
+                                                        第
+                                                        <input type="text" id="goto" name="goto" value="1" size="2" />
+                                                        页
+                                                        <input type="button" class="btn btn-info" value="跳转" onclick="goToPage()" />
+                                                    </td>
+                                                    <td>每页显示10个</td>
+                                                    <td>
+                                                        <input type="button" class="btn btn-info" value="下一页" id="next" onclick="nextPage()" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="button" class="btn btn-info" value="尾页" id="last" onclick="lastPage()" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="guide">
+                                        <div id="teacharticles">
+                                            <table class="table table-bordered table-striped text-sm">
+                                                <tbody>
+                                                    <tr>
+                                                        <th class="w-60px">SOP编号</th>
+                                                        <th class="w-60px">SOP名称</th>
+                                                        <th class="w-60px">SOP说明</th>
+                                                        <th class="w-60px">上传时间</th>
+                                                        <th class="w-60px">操作</th>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="teachlist">
+                                                    <tr>
+                                                        <td>SA20160801001</td>
+                                                        <td>喷漆工艺</td>
+                                                        <td>喷漆工艺</td>
+                                                        <td>2016-11-10 11:54:25</td>
+                                                        <td>
+                                                            <a href="#">查看</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SP20160921001</td>
+                                                        <td>安装</td>
+                                                        <td>1</td>
+                                                        <td>2016-11-10 11:56:05</td>
+                                                        <td>
+                                                            <a href="#">查看</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input type="button" class="btn btn-info" value="上一页" id="teachpre" onclick="teachprePage()" />
+                                                    </td>
+                                                    <td>
+                                                        第
+                                                        <span id="teachpage">1</span>
+                                                        页/共
+                                                        <span id="teachpageCount"></span>
+                                                        页
+                                                    </td>
+                                                    <td>
+                                                        第
+                                                        <input type="text" id="teachgoto" name="teachgoto" value="1" size="2" />
+                                                        页
+                                                        <input type="button" class="btn btn-info" value="跳转" onclick="teachgoToPage()" />
+                                                    </td>
+                                                    <td>
+                                                        每页显示
+                                                        <select id="teachlimit" name="teachlimit" onchange="teachsetLimit(this.value)">
+                                                            <option value="10">10</option>
+                                                            <option value="20">20</option>
+                                                            <option value="30">30</option>
+                                                        </select>
+                                                        个
+                                                    </td>
+                                                    <td>
+                                                        <input type="button" class="btn btn-info" value="下一页" id="teachnext" onclick="teachnextPage()" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="defect">
+                                        <table class="table table-bordered table-striped text-sm" id="issuetable" style="table-layout:fixed;width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50%">问题描述</th>
+                                                    <th width="10%">问题状态</th>
+                                                    <th width="10%">反馈人</th>
+                                                    <th width="10%">处理人</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="exceptionlist">
+                                                <tr>
+                                                    <td style="width:100%;word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">1</td>
+                                                    <td>未处理</td>
+                                                    <td>管理员</td>
+                                                    <td>老王</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-info btn-xs" onclick="dealissue('907fdbcf-cda2-439e-8339-4d7e63e4443d','0');">处理</a>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="#" class="btn btn-info btn-xs" onclick="edit('907fdbcf-cda2-439e-8339-4d7e63e4443d','0','undefined');">编辑</a>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="#" class="btn btn-info btn-xs" onclick="selectdetail('907fdbcf-cda2-439e-8339-4d7e63e4443d','0','undefined');">详情</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="lack">
+                                        <table class="table table-bordered table-striped text-sm" id="lacktable" style="table-layout:fixed;width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="20%">品名</th>
+                                                    <th width="20%">品号</th>
+                                                    <th width="10%">数量</th>
+                                                    <th width="10%">状态</th>
+                                                    <th width="20%">反馈人</th>
+                                                    <th width="20%">时间</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="lacklist">
+                                                <tr>
+                                                    <td>三聚氰胺板</td>
+                                                    <td>MC8084</td>
+                                                    <td>21</td>
+                                                    <td>已受理</td>
+                                                    <td>陈威州</td>
+                                                    <td>2016-11-10 10:35:00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>BC61041-4-02-1</td>
+                                                    <td>BC61041-4-02-1</td>
+                                                    <td>14</td>
+                                                    <td>已发料</td>
+                                                    <td>刘清明</td>
+                                                    <td>2016-11-10 10:35:00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>螺丝8</td>
+                                                    <td>ML1212</td>
+                                                    <td>400</td>
+                                                    <td>未处理</td>
+                                                    <td>陈威州</td>
+                                                    <td>2016-11-10 10:35:00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="tcamera">
+                                        <table class="table table-bordered table-striped text-sm" id="lacktable" style="table-layout:fixed;width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50">照片采集一</th>
+                                                    <th width="50">照片采集二</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="lacklist">
+                                                <tr>
+                                                    <td>
+                                                        <img src="img/WI-033-0647-1.png"></td>
+                                                    <td>
+                                                        <img src="img/WI-033-0647-1.png"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+    <a id="returnhome" href="../index.html" style="display:block;position:fixed;bottom:8%;right:4%;z-index:1000;">
+			<img src="style/img/home.png" width="50px" height="50px"/>
+    </a>
+    <script src="style/js/bootstrap.js"></script>
+    <script src="style/js/app.js"></script>
+    <script src="style/js/app.plugin.js"></script>
+    <script src="style/js/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript">
+    	  function RunWebAppCommand(code) {
+        //alert(code+ ':' + CURRENT_PAGE_INDEX);
+        if(code==="0101"||code==="0102" ||code==="0103"){
+            window.location.href="../kanban/demo.html";
+        }
+        if(code==="0201"){
+           window.location.href="baogong/booking.html";
+        }
+        if(code==="0501"){
+           window.location.href="../sop.html";
+        }
+        if(code==="0301"){
+           alert('已经提交缺料申请');
+	  	    //gotoLastPage();
+	  	    //gotoNextPage();
+        }
+        if(code==="0401"){
+           alert('已经提交设备维修申请');
+	  	    //gotoLastPage();
+	  	    //gotoNextPage();
+        }
+   }
+   
+   
+        var activetab = "";
+        var car_no;
+        var currentProcessDetail = "";
+        var request;
+        $(function () {
+            request = paramInit();
+            teachinit();
+            
+            QueryInit($("#queryWoNo"), $("#Query"));
+            var returnhome_btn = getCookie("returnhome_btn");
+    		if(returnhome_btn == "false"){
+            	$("#returnhome").hide();
+            }else{
+            	$("#returnhome").show();
+            }
+        });
+        
+        
+        
+
+        function charge() {
+            $("#charging").show();
+            $('#charging').unbind("click");
+            $('#charging').on('click', function () {
+                layer.open({
+                    type: 2,
+                    shadeClose: true,
+                    title: "投料",
+                    shade: [0.8, '#000'],
+                    border: [10, 0.3, '#000', true],
+                    offset: ['10px', ''],
+                    area: ['1000px', '600px'],
+                    content: "/cs/Charging.html?workOrderId=" + $("#workOrderId").val() + "&CURRENT_PROCESS_DETAIL_ID=" + currentProcessDetail,
+                    end: function () { $("#queryWoNo").val($("#WO_NO").val()); queryWorkOrder(); }
+                });
+            });
+        }
+
+
+        function down(x, y) {
+            return (x.NUM < y.NUM) ? -1 : 1;
+        }
+        function flowDown(x, y) {
+            return (x.START_DATE < y.START_DATE) ? -1 : 1;
+        }
+        
+        //时间转换
+        function dataTostring(str) {
+            if (str != null)
+                return d = str.replace("T", " ");
+            else
+                return " ";
+        }
+        
+        
+        
+        
+        //页面初始化
+        function init() {
+            start = 1;
+            limit = 10;
+            feeding();
+        }
+        var totalCount;      //总的条数
+        var totalPageCount;   //总页数
+        var start = 1;            //文件列表当前索引
+        var limit = 10;            //每页显示个数
+        //var first;           //是否为第一次查询
+        function firstPage() {
+            start = 1;
+            feeding();
+        }
+        //尾页
+        function lastPage() {
+            start = totalPageCount;
+            feeding();
+        }
+        //上一页
+        function prePage() {
+            start = start - 1;
+            if (start < 1) {
+                start = 1;
+            }
+            feeding();
+        }
+        //下一页
+        function nextPage() {
+            start = start + 1;
+            if (start > totalPageCount) {
+                start = totalPageCount;
+            }
+            feeding();
+        }
+        //跳转
+        function goToPage() {
+            var value = $("#goto").val();
+            if (value < 1 || value > totalPageCount) {
+                window.wxc.xcConfirm('数字超出范围！');
+            } else {
+                start = parseInt(value);
+                feeding();
+            }
+        }
+        //控制按钮显示
+        function buttomDisplay() {
+            if (start <= 0) {
+                document.getElementById("pre").disabled = "disabled";
+            } else {
+                document.getElementById("pre").disabled = "";
+            }
+            if (start + limit >= totalCount) {
+                document.getElementById("next").disabled = "disabled";
+            } else {
+                document.getElementById("next").disabled = "";
+            }
+        }
+
+        var teachtotalCount;         //总的条数
+        var teachtotalPageCount;   //总页数
+        var teachstart;            //文件列表当前索引
+        var teachlimit;            //每页显示个数
+        //上一页
+        function teachprePage() {
+            teachstart = teachstart - 1;
+            if (teachstart < 1) {
+                teachstart = 1;
+            }
+            teachgetList();
+        }
+        //下一页
+        function teachnextPage() {
+            teachstart = teachstart + 1;
+            if (teachstart > teachtotalPageCount) {
+                teachstart = teachtotalPageCount;
+            }
+            teachgetList();
+        }
+        //跳转
+        function teachgoToPage() {
+            var value = document.getElementById("teachgoto").value;
+            if (value < 1 || value > teachtotalPageCount) {
+                window.wxc.xcConfirm('数字超出范围！');
+            } else {
+                teachstart = parseInt(value);
+                teachgetList();
+            }
+        }
+        //修改每页显示数
+        function teachsetLimit(value) {
+            if (value > 0 && value < 50) {
+                teachlimit = Number(value);
+            }
+            document.getElementById("teachpageCount").innerHTML = Math.ceil(teachtotalCount / teachlimit);
+            teachgetList();
+        }
+        //控制按钮显示
+        function buttomDisplay() {
+            if (start <= 0) {
+                document.getElementById("teachpre").disabled = "disabled";
+            } else {
+                document.getElementById("teachpre").disabled = "";
+            }
+            if (start + limit >= totalCount) {
+                document.getElementById("teachnext").disabled = "disabled";
+            } else {
+                document.getElementById("teachnext").disabled = "";
+            }
+        }
+        //页面初始化
+        function teachinit() {
+            //first = true;
+            teachstart = 1;
+            teachlimit = 20;
+            document.getElementById("teachlimit").value = 20;
+            //teachgetList();
+        }
+        
+    </script>
+</body>
+
+</html>
