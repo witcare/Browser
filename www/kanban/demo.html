@@ -54,6 +54,9 @@
 <script>
    var CURRENT_PAGE_INDEX = 0;
      function RunWebAppCommand(code) {
+     	  if(code==="0000"){
+            window.location.href="../index.html";
+        }
         //alert(code+ ':' + CURRENT_PAGE_INDEX);
         if(code==="0101"){
            CURRENT_PAGE_INDEX = 0;
@@ -139,6 +142,8 @@
         }else{
         	$("#returnhome").show();
         };
+        
+        //RunWebAppCommand("0301");
     });
 
 

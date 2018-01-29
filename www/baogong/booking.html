@@ -615,6 +615,10 @@
     <script type="text/javascript">
     	  function RunWebAppCommand(code) {
         //alert(code+ ':' + CURRENT_PAGE_INDEX);
+         if(code==="0000"){
+            window.location.href="../index.html";
+        }
+        
         if(code==="0101"||code==="0102" ||code==="0103"){
             window.location.href="../kanban/demo.html";
         }
@@ -675,16 +679,7 @@
         var currentProcessDetail = "";
         var request;
         $(function () {
-            request = paramInit();
-            teachinit();
-            
-            QueryInit($("#queryWoNo"), $("#Query"));
-            var returnhome_btn = getCookie("returnhome_btn");
-    		if(returnhome_btn == "false"){
-            	$("#returnhome").hide();
-            }else{
-            	$("#returnhome").show();
-            }
+            //RunWebAppCommand("0301");
         });
         
         
